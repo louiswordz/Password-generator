@@ -2,37 +2,203 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@import url("https://fonts.googleapis.com/css?family=Muli&display=swap");
+
+[data-theme="light"] {
+  --bg-color: #eef0f4;
+  --color: #333;
+  --togglebg: #333;
+  --roundcolor: #eef0f4;
+  --toggleslider: #111;
+  --togglesliderColor: #111;
+  --filter1: drop-shadow(-8px -8px 12px #ffffff)
+    drop-shadow(8px 8px 12px #c3c5c8);
+  --filter2: drop-shadow(-4px -4px 6px #ffffff) drop-shadow(4px 4px 6px #c3c5c8);
+  --filter3: drop-shadow(-2px -2px 3px #ffffff) drop-shadow(2px 2px 3px #c3c5c8);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+[data-theme="dark"] {
+  --bg-color: #333;
+  --color: #ccc;
+  --roundcolor: #333;
+  --toggleslider: #eef0f4;
+  --togglesliderColor: #fff;
+  --filter1: drop-shadow(-8px -8px 12px #16151508)
+    drop-shadow(8px 8px 12px #13111178);
+  --filter2: drop-shadow(-4px -4px 6px #16151508)
+    drop-shadow(4px 4px 6px #13111178);
+  --filter3: drop-shadow(-2px -2px 3px #16151508)
+    drop-shadow(2px 2px 3px #13111178);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--color);
+  font-family: "Muli", sans-serif;
+}
+
+p {
+  margin: 5px 0;
+}
+
+h2 {
+  margin: 10px 0 20px;
+  text-align: center;
+}
+
+input[type="checkbox"] {
+  margin-right: 0;
+}
+
+.container {
+  padding: 20px;
+  width: 350px;
+  max-width: 100%;
+  background: var(--bg-color);
+  border: 12px solid var(--bg-color);
+  filter: var(--filter1);
+  margin: auto;
+}
+
+.result-container {
+  background-color: var(--bg-color);
+  border: 12px solid var(--bg-color);
+  filter: var(--filter2);
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
+  font-size: 18px;
+  letter-spacing: 1px;
+  height: 60px;
+  width: 100%;
+  margin-bottom: 35px;
 }
 
-.App-link {
-  color: #61dafb;
+textarea {
+  background: none;
+  border: none;
+  color: var(--color);
+  font-size: 20px;
+  margin-top: auto;
+  outline: none;
+  resize: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.result-container .btn {
+  font-size: 20px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 40px;
+  width: 40px;
+}
+
+.buttons {
+  display: flex;
+}
+
+.btn {
+  width: 14%;
+  border: none;
+  color: var(--color);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 12px;
+  margin: 14px 5px 7px 5px;
+  background-color: var(--bg-color);
+  filter: var(--filter2);
+}
+
+.btn:hover {
+  filter: var(--filter3);
+  transition: 0.3s ease-in-out;
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+@media screen and (max-width: 400px) {
+  .result-container {
+    font-size: 14px;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+nav{
+  display: flex;
+  justify-content: flex-end;
+  padding: 30px 30px;
+}
+
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.theme-switch-wrapper em {
+  margin-left: 10px;
+  font-size: 1rem;
+}
+
+.theme-switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: var(--togglebg);
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+  /* filter: var(--filter); */
+}
+
+.slider:before {
+  background-color: var(--roundcolor);
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 26px;
+}
+
+input:checked+.slider {
+  background-color: var(--toggleslider);
+}
+
+input:checked+.slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius:50%;
+}
+
+em {
+  color: var(--togglesliderColor);
 }
