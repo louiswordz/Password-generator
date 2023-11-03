@@ -9,6 +9,7 @@ function App() {
     const [isUppercase, setIsUppercase] = useState(false);
     const [isnumber, setIsnumber] = useState(false);
     const [israndom, setIsrandom] = useState(false);
+    const [num, setNum] = useState(12)
     const [copy, setcopy] = useState(false)
     const [passwordResult, setPasswordResult] = useState('')
     const [passwordlength, setPasswordlength] = useState('')
@@ -25,6 +26,14 @@ function App() {
         localStorage.setItem('theme', 'light');
       }
     };
+
+    const numberHandle=()=>{
+      if (setNum(num) == num+1){
+        num+=1
+      }else{
+        num-=1
+      }
+    }
   
     useEffect(() => {
       // Check the current theme from localStorage
@@ -43,21 +52,21 @@ function App() {
 
       let characters = '';
 
-      if(setIsUppercase) characters += uppercaseChar;
-      if(setIsLowercase) characters += lowercaseChar;
-      if(setIsnumber)     characters += numberChar;
-      if(setIsrandom)     characters += symbols;
+      if(setIsUppercase || isUppercase==='checked') characters += uppercaseChar;
+      if(setIsLowercase || isLowercase==='checked') characters += lowercaseChar;
+      if(setIsnumber || isnumber === 'checked')     characters += numberChar;
+      if(setIsrandom || israndom === 'checked')     characters += symbols;
 
       if (characters) {
         let newPassword = '';
-         let length = parseInt(8);
+         let length = parseInt(num);
         for (let i = 0; i < length; i++) {
           newPassword += characters.charAt(Math.floor(Math.random() * characters.length));
         }
   
         setPasswordResult(newPassword);
       } else {
-        setPasswordResult('Please select at least one option.');
+        setPasswordResult('No option Selected.');
       }
       };
     
@@ -91,7 +100,7 @@ function App() {
         </div>
         <div className="setting">
           <label>Password length</label>
-          <input type="number" id="Passwordlength" onChange={()=>{setPasswordlength()}} min={4} max={20} defaultValue={passwordlength} />
+          <input type="number" id="Passwordlength" onChange={()=>{setPasswordlength(passwordlength)}} min={4} max={20} value={{numberHandle}} />
         </div>
         <div className="setting">
           <label>Include Uppercase latters</label>
